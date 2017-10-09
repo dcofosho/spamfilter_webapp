@@ -85,10 +85,18 @@ def isSpam(s):
 @app.route('/home', methods=['GET', 'POST'])
 def spamFilterHome():
 	if request.method == 'POST':
-		pass
+		if request.form['msg']:
+			print("MSG:"+"\n"+str(request.form['msg']))
+			if isSpam(str(request.form['msg']))=="[1]":
+				print("Is it spam?"+"\n"+str(isSpam(str(request.form['msg']))))
+				return str(request.form['msg'])+"\n"+"this message is spam"
+			else:
+				print("Is it spam?"+"\n"+str(isSpam(str(request.form['msg']))))
+				return str(request.form['msg'])+"\n"+"this message is NOT spam"
 	else:
 		return render_template("home.html")
 
 if __name__ == '__main__':
+	app.secret_key='totally_secure_key'
 	app.debug = True
 	app.run()
