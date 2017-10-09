@@ -89,10 +89,10 @@ def spamFilterHome():
 			print("MSG:"+"\n"+str(request.form['msg']))
 			if isSpam(str(request.form['msg']))=="[1]":
 				print("Is it spam?"+"\n"+str(isSpam(str(request.form['msg']))))
-				return str(request.form['msg'])+"\n"+"this message is spam"
+				return str(request.form['msg'])+"<br>"+"this message is spam"+"<br>"+"<form><input type='button' value='Go back' onclick='history.back()'></input></form>"
 			else:
 				print("Is it spam?"+"\n"+str(isSpam(str(request.form['msg']))))
-				return str(request.form['msg'])+"\n"+"this message is NOT spam"
+				return str(request.form['msg'])+"<br>"+"this message is NOT spam"+"<br>"+"<form><input type='button' value='Go back!' onclick='history.back()'></input></form>"
 	else:
 		return render_template("home.html")
 
