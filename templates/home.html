@@ -1,5 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
+<h1>Spam filter app</h1>
+<hr>
 <form action="{{url_for('spamFilterHome')}}" method = "post">
 	<label for="msg">Enter Message Here:</label>
 	<input type="text" maxLength="1000" name="msg" placeholder="Enter MSG here">

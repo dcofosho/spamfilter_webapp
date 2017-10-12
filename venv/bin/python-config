@@ -1,4 +1,4 @@
-#!/var/www/html/venv/bin/python
+#!/home/ubuntu/venv/bin/python
 
 import sys
 import getopt

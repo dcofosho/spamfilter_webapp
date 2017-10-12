@@ -9,14 +9,14 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-
+import json
 app = Flask(__name__)
 
 count_vector = CountVectorizer()
 naive_bayes = MultinomialNB()
 
 #Read labeled sms data with pandas as table with columns label and sms message
-df = pd.read_table('SMSSpamCollection',
+df = pd.read_table('/var/www/html/spamfilter/spamfilter/SMSSpamCollection',
 		sep='\t',
 		header=None,
 		names=['label', 'sms_message'])
@@ -86,17 +86,21 @@ def isSpam(s):
 def spamFilterHome():
 	if request.method == 'POST':
 		if request.form['msg']:
-			print("MSG:"+"\n"+str(request.form['msg']))
+			#print("MSG:"+"\n"+str(request.form['msg']))
 			if isSpam(str(request.form['msg']))=="[1]":
-				print("Is it spam?"+"\n"+str(isSpam(str(request.form['msg']))))
+				#print("Is it spam?"+"\n"+str(isSpam(str(request.form['msg']))))
 				return str(request.form['msg'])+"<br>"+"this message is spam"+"<br>"+"<form><input type='button' value='Go back' onclick='history.back()'></input></form>"
 			else:
-				print("Is it spam?"+"\n"+str(isSpam(str(request.form['msg']))))
+				#print("Is it spam?"+"\n"+str(isSpam(str(request.form['msg']))))
 				return str(request.form['msg'])+"<br>"+"this message is NOT spam"+"<br>"+"<form><input type='button' value='Go back!' onclick='history.back()'></input></form>"
 	else:
 		return render_template("home.html")
 
+@app.route('/jsonapi/<string:msg>')
+def spamapi(msg):
+	return jsonify(isSpam=isSpam(msg))
+
 if __name__ == '__main__':
 	app.secret_key='totally_secure_key'
-	app.debug = True
+	#app.debug = True
 	app.run()
