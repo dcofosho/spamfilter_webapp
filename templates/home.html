@@ -2,6 +2,11 @@
 {% block content %}
 <h1>Spam filter app</h1>
 <hr>
+<p>Type in a message in the field below and hit go to test whether or not the message is spam!</p>
+<br>
+<p>To use the API, simply go to the url /jsonapi/[STRING WITH SLASHES REMOVED]</p>
+<br>
+<p>The API returns a JSON object with isspam value which will be [0] if not spam, [1] if spam.</p>
 <form action="{{url_for('spamFilterHome')}}" method = "post">
 	<label for="msg">Enter Message Here:</label>
 	<input type="text" maxLength="1000" name="msg" placeholder="Enter MSG here">
