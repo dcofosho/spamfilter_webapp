@@ -82,7 +82,7 @@ def isSpam(s):
 
 #print("predictions3"+isSpam("SIX chances to win CASH! From 100 to 20,000 pounds txt> CSH11 and send to 87575. Cost 150p/day, 6days, 16+ TsandCs apply Reply")) 
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/spamfilter', methods=['GET', 'POST'])
 def spamFilterHome():
 	if request.method == 'POST':
 		if request.form['msg']:
@@ -96,7 +96,7 @@ def spamFilterHome():
 	else:
 		return render_template("home.html")
 
-@app.route('/jsonapi/<string:msg>')
+@app.route('/spamapi/<string:msg>')
 def spamapi(msg):
 	return jsonify(isSpam=isSpam(msg))
 
